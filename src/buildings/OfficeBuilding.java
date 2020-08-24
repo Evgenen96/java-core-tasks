@@ -1,11 +1,15 @@
 package buildings;
 
+import exceptions.FloorIndexOutOfBoundsException;
+import exceptions.SpaceIndexOutOfBoundsException;
+import interfaces.Building;
 import interfaces.Floor;
 import interfaces.Space;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class OfficeBuilding implements interfaces.Building {
+public class OfficeBuilding implements Building, Cloneable, Serializable {
 
     private LinkedList<Floor> officeFloorsList;
 
@@ -68,22 +72,38 @@ public class OfficeBuilding implements interfaces.Building {
     //Создайте метод получения объекта этажа, по его номеру в здании.
     @Override
     public Floor getFloor(int number) {
-        return officeFloorsList.get(number);
+        try {
+            return officeFloorsList.get(number);
+        } catch (IndexOutOfBoundsException e) {
+            throw new FloorIndexOutOfBoundsException(number);
+        }
     }
 
     //Создайте метод изменения этажа по его номеру в здании и ссылке на объект нового этажа.
     @Override
     public void changeFloor(int number, Floor newOfficeFloor) {
-        officeFloorsList.add(number, newOfficeFloor);
-        officeFloorsList.remove(number + 1);
+        try {
+            officeFloorsList.set(number, newOfficeFloor);
+        } catch (IndexOutOfBoundsException e) {
+            throw new FloorIndexOutOfBoundsException(number);
+        }
+    }
+
+    private boolean doesSpaceExist(int number) {
+        if (!(0 <= number && number < getSpacesAmount())) {
+            throw new SpaceIndexOutOfBoundsException(number);
+        } else {
+            return true;
+        }
     }
 
     //Создайте метод получения объекта офиса по его номеру в офисном здании.
     @Override
     public Space getSpace(int number) {
+        doesSpaceExist(number);
         int currentNumber = 0;
         for (Floor officeFloor : officeFloorsList) {
-            if (currentNumber + officeFloor.getSpacesAmount() >= number) {
+            if (currentNumber + officeFloor.getSpacesAmount() > number) {
                 return officeFloor.getSpace(number - currentNumber);
             }
             currentNumber += officeFloor.getSpacesAmount();
@@ -94,9 +114,10 @@ public class OfficeBuilding implements interfaces.Building {
     //Создайте метод изменения объекта офиса по его номеру в доме и ссылке на объект офиса.
     @Override
     public void changeSpace(int number, Space newOffice) {
+        doesSpaceExist(number);
         int currentNumber = 0;
         for (Floor officeFloor : officeFloorsList) {
-            if (currentNumber + officeFloor.getSpacesAmount() >= number) {
+            if (currentNumber + officeFloor.getSpacesAmount() > number) {
                 officeFloor.changeSpace(number - currentNumber, newOffice);
                 break;
             }
@@ -107,22 +128,25 @@ public class OfficeBuilding implements interfaces.Building {
     //Создайте метод добавления офиса в здание по номеру офиса в здании и ссылке на объект офиса.
     @Override
     public void insertSpace(int number, Space newOffice) {
-        int currentNumber = 0;
-        for (Floor officeFloor : officeFloorsList) {
-            if (currentNumber + officeFloor.getSpacesAmount() >= number) {
-                officeFloor.insertSpace(number - currentNumber, newOffice);
-                break;
+        if (number == getSpacesAmount() || doesSpaceExist(number)) {
+            int currentNumber = 0;
+            for (Floor officeFloor : officeFloorsList) {
+                if (currentNumber + officeFloor.getSpacesAmount() > number) {
+                    officeFloor.insertSpace(number - currentNumber, newOffice);
+                    break;
+                }
+                currentNumber += officeFloor.getSpacesAmount();
             }
-            currentNumber += officeFloor.getSpacesAmount();
         }
     }
 
     //Создайте метод удаления офиса по его номеру в здании.
     @Override
     public void removeSpace(int number) {
+        doesSpaceExist(number);
         int currentNumber = 0;
         for (Floor officeFloor : officeFloorsList) {
-            if (currentNumber + officeFloor.getSpacesAmount() >= number) {
+            if (currentNumber + officeFloor.getSpacesAmount() > number) {
                 officeFloor.removeSpace(number - currentNumber);
                 break;
             }
@@ -135,9 +159,10 @@ public class OfficeBuilding implements interfaces.Building {
     public Space getBestSpace() {
         double maxSquare = 0;
         Space office = null;
-        Space bestOffice = officeFloorsList.getFirst().getSpace(0);
+        Space bestOffice = new Office(0, 0);
         for (Floor officeFloor : officeFloorsList) {
             office = officeFloor.getBestSpace();
+            if (office == null) continue;
             if (maxSquare < office.getArea()) {
                 maxSquare = office.getArea();
                 bestOffice = office;
@@ -167,5 +192,43 @@ public class OfficeBuilding implements interfaces.Building {
             }
         });
         return offices;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        OfficeBuilding officeBuilding = (OfficeBuilding) super.clone();
+        officeBuilding.officeFloorsList = new LinkedList<>();
+        for (int i = 0; i < this.officeFloorsList.size(); i++) {
+            officeBuilding.officeFloorsList.add((Floor) this.officeFloorsList.get(i).clone());
+        }
+        return officeBuilding;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OfficeBuilding that = (OfficeBuilding) o;
+        return Objects.deepEquals(officeFloorsList, that.officeFloorsList);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("OfficeBuilding (\n  " + getFloorsAmount() + "\n  ");
+        for (Floor floor : getFloorsArray()) {
+            stringBuilder.append(floor + ",\n  ");
+        }
+        stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
+        stringBuilder.append(")");
+        return stringBuilder.toString();
+
+    }
+
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(officeFloorsList);
     }
 }

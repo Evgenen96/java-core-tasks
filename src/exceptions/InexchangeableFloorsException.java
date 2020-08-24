@@ -1,4 +1,4 @@
 package exceptions;
 
-public class InexchangeableFloorsException {
+public class InexchangeableFloorsException extends Exception {
 }

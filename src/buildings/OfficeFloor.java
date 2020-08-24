@@ -3,10 +3,12 @@ package buildings;
 import interfaces.Floor;
 import interfaces.Space;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
-public class OfficeFloor implements Floor {
+public class OfficeFloor implements Floor, Cloneable, Serializable {
 
     private ArrayList<Space> officesList;
 
@@ -14,7 +16,7 @@ public class OfficeFloor implements Floor {
     public OfficeFloor(int officesAmount) {
         officesList = new ArrayList<>();
         for (int i = 0; i < officesAmount; i++) {
-            officesList.add(new Flat());
+            officesList.add(new Office());
         }
     }
 
@@ -58,6 +60,7 @@ public class OfficeFloor implements Floor {
     //Создайте метод получения офиса по его номеру на этаже.
     @Override
     public Space getSpace(int number) {
+
         return officesList.get(number);
     }
 
@@ -93,5 +96,41 @@ public class OfficeFloor implements Floor {
             }
         }
         return bestOffice;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("OfficeFloor (" + getSpacesAmount() + ", ");
+        for (Space space : officesList) {
+            stringBuilder.append(space + ", ");
+        }
+        stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
+        stringBuilder.append(")");
+
+        return stringBuilder.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OfficeFloor that = (OfficeFloor) o;
+        return Objects.deepEquals(officesList, that.officesList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(officesList);
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        OfficeFloor floor = (OfficeFloor) super.clone();
+        floor.officesList = new ArrayList<>();
+        for (int i = 0; i < this.officesList.size(); i++) {
+            floor.officesList.add((Space) this.officesList.get(i).clone());
+        }
+        return floor;
     }
 }

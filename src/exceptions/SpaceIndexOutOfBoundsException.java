@@ -18,7 +18,7 @@ public class SpaceIndexOutOfBoundsException extends IndexOutOfBoundsException {
     @Override
     public String getMessage() {
         if (number != null) {
-            return "Ошибка выхода за границы номеров помещений" + getNumber();
+            return "Ошибка выхода за границы номеров помещений: " + getNumber();
         }
         return super.getMessage();
     }

@@ -21,4 +21,13 @@ public interface Floor {
     void removeSpace(int number);
 
     Space getBestSpace();
+
+    Object clone() throws CloneNotSupportedException;
+
+    String toString();
+
+    int hashCode();
+
+    boolean equals( Object object );
+
 }

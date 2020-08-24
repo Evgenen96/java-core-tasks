@@ -42,4 +42,18 @@ public interface Building {
 
     //Создайте метод получения отсортированного по убыванию площадей массива офисов.
     Space[] getSpacesAsSortedArray();
+
+    //Реализовать глубокое клонирование
+    Object clone() throws CloneNotSupportedException;
+
+    //Добавьте в классы помещений Flat и Office реализации метода String toString()
+    String toString();
+
+    //Добавьте в классы помещений реализации методов int hashCode().
+    int hashCode();
+
+    //Добавьте в классы помещений реализации методов boolean equals(Object object).
+    boolean equals(Object object);
+
+
 }

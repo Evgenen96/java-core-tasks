@@ -2,27 +2,27 @@ package exceptions;
 
 public class InvalidSpaceAreaException extends IllegalArgumentException {
 
-    private int square;
+    private double area;
 
     public InvalidSpaceAreaException() {
     }
 
-    public InvalidSpaceAreaException(int officeNumber) {
-        this.square = officeNumber;
+    public InvalidSpaceAreaException(double officeNumber) {
+        this.area = officeNumber;
 
     }
 
-    public int getSquare() {
-        return square;
+    public double getArea() {
+        return area;
     }
 
     @Override
     public String getMessage() {
-        if (square < 0) {
-            return "Отрицательное значение площади: " + getSquare();
+        if (area < 0) {
+            return "Отрицательное значение площади: " + getArea();
         }
-        if (square > 5000) {
-            return "Значение площади выше возможных 5000: " + getSquare();
+        if (area > 5000) {
+            return "Значение площади выше возможных 5000: " + getArea();
         }
         return super.getMessage();
     }

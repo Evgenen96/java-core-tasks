@@ -2,7 +2,10 @@ package buildings;
 
 import interfaces.Space;
 
-public class Office implements Space {
+import java.io.Serializable;
+import java.util.Objects;
+
+public class Office implements Space, Cloneable, Serializable {
 
     private double area;
     private int roomsAmount;
@@ -40,12 +43,36 @@ public class Office implements Space {
 
     @Override
     public int getRoomsAmount() {
-       return roomsAmount;
+        return roomsAmount;
     }
 
     @Override
     public void setRoomsAmount(int roomsAmount) {
         Space.checkRooms(roomsAmount);
         this.roomsAmount = roomsAmount;
+    }
+
+    @Override
+    public String toString() {
+        return "Office (" + area + ", " + roomsAmount + ')';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Office office = (Office) o;
+        return Double.compare(office.area, area) == 0 &&
+                roomsAmount == office.roomsAmount;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(area, roomsAmount);
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

@@ -1,4 +1,4 @@
 package exceptions;
 
-public class InexchangeableSpacesException {
+public class InexchangeableSpacesException extends Exception {
 }

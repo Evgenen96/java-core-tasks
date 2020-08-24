@@ -16,15 +16,25 @@ public interface Space {
 
     void setRoomsAmount(int rooms);
 
+    Object clone() throws CloneNotSupportedException;
+
+    String toString();
+
+    int hashCode();
+
+    boolean equals( Object object );
+
+
     static void checkRooms(int rooms) {
-        if (rooms <= 0 || rooms >= MAX_ROOMSCOUNT) {
-            throw new InvalidRoomsCountException();
+        if (rooms < 0 || rooms > MAX_ROOMSCOUNT) {
+            throw new InvalidRoomsCountException(rooms);
         }
     }
 
     static void checkArea(double area) {
-        if (area <= 0 || area >= MAX_AREA) {
-            throw new InvalidSpaceAreaException();
+        if (area < 0 || area > MAX_AREA) {
+            throw new InvalidSpaceAreaException(area);
         }
     }
+
 }
