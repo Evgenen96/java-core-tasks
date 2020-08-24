@@ -1,8 +1,14 @@
 package interfaces;
 
-import buildings.Flat;
+import java.io.Serializable;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.Objects;
 
-public interface Floor {
+/**
+ * <p>TASK 3.7 Интерфейс этажа здания
+ */
+public interface Floor extends Serializable, Cloneable, Iterable<Space>, Comparable<Floor> {
 
     int getSpacesAmount();
 
@@ -28,6 +34,18 @@ public interface Floor {
 
     int hashCode();
 
-    boolean equals( Object object );
+    boolean equals(Object object);
+
+    @Override
+    Iterator<Space> iterator();
+
+    /**
+     * TASK 6.4 В классах этажей реализуйте метод int compareTo(T o) <br/>
+     * таким образом, чтобы он сравнивал объекты этажей по количеству помещений <br/>
+     */
+    @Override
+    default int compareTo(Floor o) {
+        return Objects.compare(this, o, Comparator.comparingInt(Floor::getSpacesAmount));
+    }
 
 }

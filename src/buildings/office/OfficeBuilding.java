@@ -1,4 +1,4 @@
-package buildings;
+package buildings.office;
 
 import exceptions.FloorIndexOutOfBoundsException;
 import exceptions.SpaceIndexOutOfBoundsException;
@@ -6,10 +6,20 @@ import interfaces.Building;
 import interfaces.Floor;
 import interfaces.Space;
 
-import java.io.Serializable;
 import java.util.*;
 
-public class OfficeBuilding implements Building, Cloneable, Serializable {
+/**
+ * <ul>
+ * <li>TASK 2.1 Класс жилого помещения</li>
+ * <li>TASK 5.1 Добавьте в классы зданий Dwelling, OfficeBuilding реализации метода String toString()</li>
+ * <li>TASK 5.2 Добавьте в классы зданий реализации методов boolean equals(Object object)</li>
+ * <li>TASK 5.3 Добавьте в классы зданий реализации методов int hashCode()</li>
+ * <li>TASK 5.4 Добавьте в интерфейс и классы зданий публичный метод Object clone().
+ * Реализовать клонирование, которое должно быть глубоким</li>
+ * <li>TASK 6.3 Реализация метода интерфейса Iterable</li>
+ * </ul>
+ */
+public class OfficeBuilding implements Building {
 
     private LinkedList<Floor> officeFloorsList;
 
@@ -225,10 +235,13 @@ public class OfficeBuilding implements Building, Cloneable, Serializable {
 
     }
 
-
-
     @Override
     public int hashCode() {
         return Objects.hash(officeFloorsList);
+    }
+
+    @Override
+    public Iterator<Floor> iterator() {
+        return officeFloorsList.iterator();
     }
 }

@@ -1,11 +1,20 @@
-package buildings;
+package buildings.dwelling;
 
 import interfaces.Space;
 
-import java.io.Serializable;
 import java.util.Objects;
 
-public class Flat implements Space, Cloneable, Serializable {
+/**
+ * <ul>
+ * <li>TASK 2.1 Класс жилого помещения</li>
+ * <li>TASK 5.1 Добавьте в классы помещений Flat и Office реализации метода String toString()</li>
+ * <li>TASK 5.2 Добавьте в классы помещений реализации методов boolean equals(Object object)</li>
+ * <li>TASK 5.3 Добавьте в классы помещений реализации методов int hashCode()</li>
+ * <li>TASK 5.4 Добавьте в интерфейс и классы помещений публичный метод Object clone().
+ * Реализовать клонирование, которое должно быть глубоким</li>
+ * </ul>
+ */
+public class Flat implements Space {
 
     private double area;
     private int roomsAmount;

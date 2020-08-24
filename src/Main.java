@@ -1,5 +1,5 @@
 
-import buildings.OfficeBuilding;
+import buildings.office.OfficeBuilding;
 
 import java.io.*;
 

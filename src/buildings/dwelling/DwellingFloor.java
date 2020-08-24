@@ -1,25 +1,37 @@
-package buildings;
+package buildings.dwelling;
 
 import exceptions.FloorIndexOutOfBoundsException;
 import exceptions.SpaceIndexOutOfBoundsException;
 import interfaces.Floor;
 import interfaces.Space;
 
-import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Iterator;
 
-public class DwellingFloor implements Floor, Cloneable, Serializable {
+
+/**
+ * <ul>
+ * <li>TASK 2.1 Класс жилого помещения</li>
+ * <li>TASK 5.1 Добавьте в классы этажей DwellingFloor, OfficeFloor реализации метода String toString()</li>
+ * <li>TASK 5.2 Добавьте в классы этажей реализации методов boolean equals(Object object)</li>
+ * <li>TASK 5.3 Добавьте в классы этажей реализации методов int hashCode()</li>
+ * <li>TASK 5.4 Добавьте в интерфейс и классы этажей публичный метод Object clone().
+ * Реализовать клонирование, которое должно быть глубоким</li>
+ * <li>TASK 6.3 Реализация метода интерфейса Iterable</li>
+ * </ul>
+ */
+public class DwellingFloor implements Floor {
 
     private Space[] flatsArray;
 
     public DwellingFloor(int flatsAmount) {
-        flatsArray = new Flat[flatsAmount];
+        flatsArray = new Space[flatsAmount];
         for (int i = 0; i < flatsAmount; i++) {
             flatsArray[i] = new Flat();
         }
     }
 
-    public DwellingFloor(Flat[] flatsArray) {
+    public DwellingFloor(Space[] flatsArray) {
         this.flatsArray = flatsArray;
     }
 
@@ -148,6 +160,26 @@ public class DwellingFloor implements Floor, Cloneable, Serializable {
             floor.flatsArray[i] = (Space) this.flatsArray[i].clone();
         }
         return floor;
+    }
+
+    @Override
+    public Iterator<Space> iterator() {
+        return new Iterator<Space>() {
+
+            int goingIndex = 0;
+
+            @Override
+            public boolean hasNext() {
+                return goingIndex < flatsArray.length;
+            }
+
+            @Override
+            public Space next() {
+                Space space = flatsArray[goingIndex];
+                goingIndex++;
+                return space;
+            }
+        };
     }
 
 }

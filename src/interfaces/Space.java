@@ -3,10 +3,17 @@ package interfaces;
 import exceptions.InvalidRoomsCountException;
 import exceptions.InvalidSpaceAreaException;
 
-public interface Space {
+import java.io.Serializable;
+import java.util.Comparator;
+import java.util.Objects;
 
-    final static int MAX_AREA = 5000;
-    final static int MAX_ROOMSCOUNT = 20;
+/**
+ * <p>TASK 3.6 Интерфейс помещения здания
+ */
+public interface Space extends Serializable, Cloneable, Comparable<Space> {
+
+    int MAX_AREA = 5000;
+    int MAX_ROOMSCOUNT = 20;
 
     double getArea();
 
@@ -22,8 +29,16 @@ public interface Space {
 
     int hashCode();
 
-    boolean equals( Object object );
+    boolean equals(Object object);
 
+    /**
+     * TASK 6.4 Реализуйте метод int compareTo(T o) таким образом, <br/>
+     * чтобы он сравнивал объекты помещений по их площади.
+     */
+    @Override
+    default int compareTo(Space o) {
+        return Objects.compare(this, o, Comparator.comparingDouble(Space::getArea));
+    }
 
     static void checkRooms(int rooms) {
         if (rooms < 0 || rooms > MAX_ROOMSCOUNT) {

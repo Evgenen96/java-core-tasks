@@ -1,16 +1,27 @@
-package buildings;
+package buildings.dwelling;
 
 import exceptions.FloorIndexOutOfBoundsException;
 import exceptions.SpaceIndexOutOfBoundsException;
 import interfaces.Building;
 import interfaces.Floor;
 import interfaces.Space;
-
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Iterator;
 
-public class Dwelling implements Building, Cloneable, Serializable {
+
+/**
+ * <ul>
+ * <li>TASK 2.1 Класс жилого помещения</li>
+ * <li>TASK 5.1 Добавьте в классы зданий Dwelling, OfficeBuilding реализации метода String toString()</li>
+ * <li>TASK 5.2 Добавьте в классы зданий реализации методов boolean equals(Object object)</li>
+ * <li>TASK 5.3 Добавьте в классы зданий реализации методов int hashCode()</li>
+ * <li>TASK 5.4 Добавьте в интерфейс и классы зданий публичный метод Object clone().
+ * Реализовать клонирование, которое должно быть глубоким</li>
+ * <li>TASK 6.3 Реализация метода интерфейса Iterable</li>
+ * </ul>
+ */
+public class Dwelling implements Building {
 
     private Floor[] dwellingFloorsArray;
 
@@ -200,5 +211,24 @@ public class Dwelling implements Building, Cloneable, Serializable {
             dwelling.dwellingFloorsArray[i] = (Floor) this.dwellingFloorsArray[i].clone();
         }
         return dwelling;
+    }
+
+    @Override
+    public Iterator<Floor> iterator() {
+        return new Iterator<Floor>() {
+            int goingIndex = 0;
+
+            @Override
+            public boolean hasNext() {
+                return goingIndex < dwellingFloorsArray.length;
+            }
+
+            @Override
+            public Floor next() {
+                Floor floor = dwellingFloorsArray[goingIndex];
+                goingIndex++;
+                return floor;
+            }
+        };
     }
 }

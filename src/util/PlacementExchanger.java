@@ -1,22 +1,22 @@
+package util;
+
+import exceptions.InexchangeableFloorsException;
 import exceptions.InexchangeableSpacesException;
 import interfaces.Building;
 import interfaces.Floor;
 import interfaces.Space;
 
-/*
+/**
+ * TASK 4.2
  * Создайте отдельный класс PlacementExchanger, работающий со ссылками типа Space, Floor, Building и содержащий:
- * •	Метод проверки возможности обмена помещениями.
- * Метод возвращает true, если общая площадь и количество комнат в помещениях равны, и false в других случаях
- * •	Метод проверки возможности обмена этажами. Методу передаются две ссылки на объекты типа Floor.
- * Метод возвращает true, если общая площадь этажей и количество помещений равны, и false в других случаях.
- * •	Метод обмена помещениями двух этажей
- * public static void exchangeFloorRooms(Floor floor1, int index1, Floor floor2, int index2).
- * •	Метод обмена этажами двух зданий
- * public static void exchangeBuildingFloors(Building building1, int index1, Building building2, int index2).
  */
 
 public class PlacementExchanger {
-    public static boolean areSpacesExchangable(Space spaceA, Space spaceB) {
+    /**
+     * Метод проверки возможности обмена помещениями. <br/>
+     * Метод возвращает true, если общая площадь и количество комнат в помещениях равны, и false в других случаях
+     */
+    public static boolean areSpacesExchangeable(Space spaceA, Space spaceB) {
         if (spaceA.getRoomsAmount() != spaceB.getRoomsAmount()) {
             return false;
         }
@@ -26,7 +26,11 @@ public class PlacementExchanger {
         return true;
     }
 
-    public static boolean areFloorsExchangable(Floor floorA, Floor floorB) {
+    /**
+     * Метод проверки возможности обмена этажами
+     * <p>Метод возвращает true, если общая площадь этажей и количество помещений равны, и false в других случаях.</p>
+     */
+    public static boolean areFloorsExchangeable(Floor floorA, Floor floorB) {
         if (floorA.getTotalArea() != floorB.getTotalArea()) {
             return false;
         }
@@ -36,22 +40,28 @@ public class PlacementExchanger {
         return true;
     }
 
+    /**
+     * Метод обмена помещениями двух этажей
+     */
     public static void exchangeFloorRooms(Floor floor1, int index1, Floor floor2, int index2) throws
             InexchangeableSpacesException {
         Space space1 = floor1.getSpace(index1), space2 = floor2.getSpace(index2);
-        if (areSpacesExchangable(space1, space2)) {
+        if (areSpacesExchangeable(space1, space2)) {
             throw new InexchangeableSpacesException();
         }
         floor1.changeSpace(index1, space2);
         floor2.changeSpace(index2, space1);
     }
 
+    /**
+     * Метод обмена этажами двух зданий
+     */
     public static void exchangeBuildingFloors(Building building1, int index1, Building building2, int index2) throws
-            InexchangeableSpacesException {
+            InexchangeableFloorsException {
         Floor floor1 = building1.getFloor(index1);
         Floor floor2 = building2.getFloor(index2);
-        if (areFloorsExchangable(floor1, floor2)) {
-            throw new InexchangeableSpacesException();
+        if (areFloorsExchangeable(floor1, floor2)) {
+            throw new InexchangeableFloorsException();
         }
         building1.changeFloor(index1, floor2);
         building2.changeFloor(index2, floor1);

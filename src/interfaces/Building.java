@@ -1,9 +1,13 @@
 package interfaces;
 
-import buildings.Office;
-import buildings.OfficeFloor;
+import java.io.Serializable;
+import java.util.Iterator;
 
-public interface Building {
+
+/**
+ * <p>TASK 3.8 Интерфейс здания
+ */
+public interface Building extends Serializable, Cloneable, Iterable<Floor> {
     //Создайте метод получения общего количества этажей здания.
     int getFloorsAmount();
 
@@ -54,6 +58,5 @@ public interface Building {
 
     //Добавьте в классы помещений реализации методов boolean equals(Object object).
     boolean equals(Object object);
-
 
 }

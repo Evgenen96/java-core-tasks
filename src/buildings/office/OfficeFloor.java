@@ -1,14 +1,26 @@
-package buildings;
+package buildings.office;
 
+import buildings.dwelling.Flat;
 import interfaces.Floor;
 import interfaces.Space;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Objects;
 
-public class OfficeFloor implements Floor, Cloneable, Serializable {
+/**
+ * <ul>
+ * <li>TASK 2.1 Класс жилого помещения</li>
+ * <li>TASK 5.1 Добавьте в классы этажей DwellingFloor, OfficeFloor реализации метода String toString()</li>
+ * <li>TASK 5.2 Добавьте в классы этажей реализации методов boolean equals(Object object)</li>
+ * <li>TASK 5.3 Добавьте в классы этажей реализации методов int hashCode()</li>
+ * <li>TASK 5.4 Добавьте в интерфейс и классы этажей публичный метод Object clone().
+ * Реализовать клонирование, которое должно быть глубоким</li>
+ * <li>TASK 6.3 Реализация метода интерфейса Iterable</li>
+ * </ul>
+ */
+public class OfficeFloor implements Floor {
 
     private ArrayList<Space> officesList;
 
@@ -21,7 +33,7 @@ public class OfficeFloor implements Floor, Cloneable, Serializable {
     }
 
     //Конструктор может принимать массив офисов этажа.
-    public OfficeFloor(Flat[] officesArray) {
+    public OfficeFloor(Space[] officesArray) {
         officesList = new ArrayList<>(Arrays.asList(officesArray));
     }
 
@@ -132,5 +144,10 @@ public class OfficeFloor implements Floor, Cloneable, Serializable {
             floor.officesList.add((Space) this.officesList.get(i).clone());
         }
         return floor;
+    }
+
+    @Override
+    public Iterator<Space> iterator() {
+        return officesList.iterator();
     }
 }
