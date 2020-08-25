@@ -25,8 +25,8 @@ public class Hotel extends Dwelling {
         int result = 0;
         for (Floor floor : getFloorsArray()) {
             if (floor instanceof HotelFloor) {
-                if (result < ((Hotel) floor).getStars()) {
-                    result = ((Hotel) floor).getStars();
+                if (result < ((HotelFloor) floor).getStars()) {
+                    result = ((HotelFloor) floor).getStars();
                 }
             }
         }
@@ -51,7 +51,7 @@ public class Hotel extends Dwelling {
         for (Floor floor : getFloorsArray()) {
             if (floor instanceof HotelFloor) {
                 for (Space flat : floor.getSpacesArray()) {
-                    double score = coeff[((Hotel) floor).getStars() - 1] * flat.getArea();
+                    double score = coeff[((HotelFloor) floor).getStars() - 1] * flat.getArea();
                     if (result < score) {
                         result = score;
                         bestSpace = flat;

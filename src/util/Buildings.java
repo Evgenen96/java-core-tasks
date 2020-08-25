@@ -25,12 +25,17 @@ import java.util.Scanner;
  * <li>TASK 6.7
  * Создайте статическую ссылку на фабрику BuildingFactory
  * По умолчанию поле должно ссылаться на объект, порождающий экземпляры класса Dwelling и связанных с ним классов.</li>
- * </ul>
  *
  * <li>TASK 6.8
  * В классе Buildings реализуйте статические методы, которые с помощью текущей фабрики создают новые экземпляры
  * соответствующих объектов. В остальных методах класса Buildings замените прямое создание экземпляров объектов
  * на вызов методов фабрики.</li>
+ *
+ * <li>TASK 7.3
+ *  Добавьте в класс Buildings со статическими методами обработки реализацию метода
+ *  Floor synchronizedFloor (Floor floor), возвращающего ссылку на оболочку указанного объекта этажа,
+ *  безопасную с точки зрения многопоточности.</li>
+ *  </ul>
  */
 
 public class Buildings {
@@ -182,6 +187,10 @@ public class Buildings {
 
     public static Floor createFloor(Space[] spaces) {
         return buildingFactory.createFloor(spaces);
+    }
+
+    public static Floor synchronizedFloor(Floor floor) {
+        return new SynchronizedFloor(floor);
     }
 
     public static Building createBuilding(int floorsAmount, int[] spacesAmounts) {
