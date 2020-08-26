@@ -1,12 +1,12 @@
-package util.factories;
+package buildings.util.factories;
 
 import buildings.dwelling.Dwelling;
 import buildings.dwelling.DwellingFloor;
 import buildings.dwelling.Flat;
-import interfaces.Building;
-import interfaces.Floor;
-import interfaces.Space;
-import util.BuildingFactory;
+import buildings.interfaces.Building;
+import buildings.interfaces.Floor;
+import buildings.interfaces.Space;
+import buildings.util.BuildingFactory;
 
 /**
  *  TASK 6.6 Конкретная фабрика жилых зданий

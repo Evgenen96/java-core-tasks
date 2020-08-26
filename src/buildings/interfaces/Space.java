@@ -1,7 +1,7 @@
-package interfaces;
+package buildings.interfaces;
 
-import exceptions.InvalidRoomsCountException;
-import exceptions.InvalidSpaceAreaException;
+import buildings.exceptions.InvalidRoomsCountException;
+import buildings.exceptions.InvalidSpaceAreaException;
 
 import java.io.Serializable;
 import java.util.Comparator;

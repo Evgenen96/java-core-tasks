@@ -1,6 +1,6 @@
 package buildings.office;
 
-import interfaces.Space;
+import buildings.interfaces.Space;
 
 import java.util.Objects;
 

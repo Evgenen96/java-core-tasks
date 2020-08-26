@@ -1,7 +1,7 @@
 
 import buildings.office.OfficeBuilding;
 import buildings.threads.*;
-import interfaces.Floor;
+import buildings.interfaces.Floor;
 
 
 public class Main {
@@ -26,16 +26,15 @@ public class Main {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         } */
+
+        /*
+        //TASK 7
         Semaphore sem = new Semaphore();
         Thread repairer = new Thread(new SequentialRepairer(sem, floor));
         Thread cleaner = new Thread(new SequentialCleaner(sem, floor));
         repairer.start();
         cleaner.start();
 
-
-
-
+         */
     }
-
-
 }

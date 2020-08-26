@@ -1,8 +1,8 @@
 package buildings.dwelling.hotel;
 
 import buildings.dwelling.Dwelling;
-import interfaces.Floor;
-import interfaces.Space;
+import buildings.interfaces.Floor;
+import buildings.interfaces.Space;
 
 /**
  * TASK 6.2 Создайте класс отеля Hotel, расширяющий класс Dwelling. <br/>

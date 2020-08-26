@@ -1,12 +1,12 @@
-package util.factories;
+package buildings.util.factories;
 
 import buildings.office.Office;
 import buildings.office.OfficeBuilding;
 import buildings.office.OfficeFloor;
-import interfaces.Building;
-import interfaces.Floor;
-import interfaces.Space;
-import util.BuildingFactory;
+import buildings.interfaces.Building;
+import buildings.interfaces.Floor;
+import buildings.interfaces.Space;
+import buildings.util.BuildingFactory;
 
 /**
  * TASK 6.6 Конкретная фабрика офисных зданий

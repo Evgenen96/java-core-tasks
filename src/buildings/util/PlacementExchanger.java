@@ -1,10 +1,10 @@
-package util;
+package buildings.util;
 
-import exceptions.InexchangeableFloorsException;
-import exceptions.InexchangeableSpacesException;
-import interfaces.Building;
-import interfaces.Floor;
-import interfaces.Space;
+import buildings.exceptions.InexchangeableFloorsException;
+import buildings.exceptions.InexchangeableSpacesException;
+import buildings.interfaces.Building;
+import buildings.interfaces.Floor;
+import buildings.interfaces.Space;
 
 /**
  * TASK 4.2

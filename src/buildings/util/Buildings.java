@@ -1,13 +1,14 @@
-package util;
+package buildings.util;
 
-import interfaces.Building;
-import interfaces.Floor;
-import interfaces.Space;
-import util.factories.DwellingFactory;
+import buildings.interfaces.Building;
+import buildings.interfaces.Floor;
+import buildings.interfaces.Space;
+import buildings.util.factories.DwellingFactory;
+import buildings.util.sortcriterion.SortFloors;
+import buildings.util.sortcriterion.SortSpaces;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -22,6 +23,17 @@ import java.util.Scanner;
  * <li>TASK 4.5
  * Добавьте метод текстовой записи, использующий возможности форматированного вывода.</li>
  *
+ * <li>TASK 6.4
+ * Добавьте в класс Buildings метод сортировки помещений этажа по возрастанию площадей помещений,
+ * и метод сортировки этажей здания по возрастанию количества помещений на этаже.
+ * Объедините оба метода в один параметризованный метод сортировки.
+ * <br/>
+ * В класс Buildings добавьте два метода сортировки с критерием –
+ * сортировка помещений на этаже по убыванию количества комнат
+ * и сортировка этажей в здании по убыванию общей площади помещений этажа.
+ * Объедините оба метода в один параметризованный метод сортировки с критерием.
+ * </li>
+ *
  * <li>TASK 6.7
  * Создайте статическую ссылку на фабрику BuildingFactory
  * По умолчанию поле должно ссылаться на объект, порождающий экземпляры класса Dwelling и связанных с ним классов.</li>
@@ -35,6 +47,8 @@ import java.util.Scanner;
  *  Добавьте в класс Buildings со статическими методами обработки реализацию метода
  *  Floor synchronizedFloor (Floor floor), возвращающего ссылку на оболочку указанного объекта этажа,
  *  безопасную с точки зрения многопоточности.</li>
+ *
+ *
  *  </ul>
  */
 
@@ -173,6 +187,58 @@ public class Buildings {
         return createBuilding(floors);
     }
 
+    private static Space[] sortSpace(Floor floor) {
+        Space[] sortedSpaces = floor.getSpacesArray();
+        Arrays.sort(sortedSpaces);
+        return sortedSpaces;
+    }
+
+    private static Floor[] sortFloor(Building building) {
+        Floor[] sortedFloors = building.getFloorsArray();
+        Arrays.sort(sortedFloors);
+        return sortedFloors;
+    }
+
+
+    public static <T, V> V[] sortByAscending(T object) {
+        if (object instanceof Floor) {
+            Floor floor = (Floor) object;
+            return (V[]) sortSpace(floor);
+        } else {
+            if (object instanceof Building) {
+                Building building = (Building) object;
+                return (V[]) sortFloor(building);
+            }
+        }
+        return null;
+    }
+
+    private static Space[] sortSpaceWithCriterion(Floor floor) {
+        Space[] spaces = floor.getSpacesArray();
+        Arrays.sort(spaces, new SortSpaces());
+        return spaces;
+    }
+
+    private static Floor[] sortFloorWithCriterion(Building building) {
+        Floor[] floors = building.getFloorsArray();
+        Arrays.sort(floors, new SortFloors());
+        return floors;
+    }
+
+    public static <T, V> V[] sortByDescending(T object) {
+        if (object instanceof Floor) {
+            Floor floor = (Floor) object;
+            return (V[]) sortSpaceWithCriterion(floor);
+        } else {
+            if (object instanceof Building) {
+                Building building = (Building) object;
+                return (V[]) sortFloorWithCriterion(building);
+            }
+        }
+        return null;
+    }
+
+
     public static Space createSpace(double area) {
         return buildingFactory.createSpace(area);
     }
@@ -200,5 +266,6 @@ public class Buildings {
     public static Building createBuilding(Floor[] floors) {
         return buildingFactory.createBuilding(floors);
     }
+
 
 }

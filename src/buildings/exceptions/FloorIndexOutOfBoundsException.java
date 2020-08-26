@@ -1,4 +1,4 @@
-package exceptions;
+package buildings.exceptions;
 
 public class FloorIndexOutOfBoundsException extends IndexOutOfBoundsException {
     private Integer number = null;

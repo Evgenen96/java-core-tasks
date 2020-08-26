@@ -1,7 +1,6 @@
-package interfaces;
+package buildings.interfaces;
 
 import java.io.Serializable;
-import java.util.Iterator;
 
 
 /**

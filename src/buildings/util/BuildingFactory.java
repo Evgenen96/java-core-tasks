@@ -1,8 +1,8 @@
-package util;
+package buildings.util;
 
-import interfaces.Building;
-import interfaces.Floor;
-import interfaces.Space;
+import buildings.interfaces.Building;
+import buildings.interfaces.Floor;
+import buildings.interfaces.Space;
 
 /**
  *  TASK 6.5 Абстрактная фабрика зданий

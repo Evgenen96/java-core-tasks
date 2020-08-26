@@ -1,8 +1,7 @@
 package buildings.office;
 
-import buildings.dwelling.Flat;
-import interfaces.Floor;
-import interfaces.Space;
+import buildings.interfaces.Floor;
+import buildings.interfaces.Space;
 
 import java.util.ArrayList;
 import java.util.Arrays;

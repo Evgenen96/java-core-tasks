@@ -1,7 +1,7 @@
-package util;
+package buildings.util;
 
-import interfaces.Floor;
-import interfaces.Space;
+import buildings.interfaces.Floor;
+import buildings.interfaces.Space;
 
 import java.util.Iterator;
 

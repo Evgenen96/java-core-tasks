@@ -1,9 +1,9 @@
 package buildings.dwelling;
 
-import exceptions.FloorIndexOutOfBoundsException;
-import exceptions.SpaceIndexOutOfBoundsException;
-import interfaces.Floor;
-import interfaces.Space;
+import buildings.exceptions.FloorIndexOutOfBoundsException;
+import buildings.exceptions.SpaceIndexOutOfBoundsException;
+import buildings.interfaces.Floor;
+import buildings.interfaces.Space;
 
 import java.util.Arrays;
 import java.util.Iterator;
